@@ -32578,8 +32578,8 @@ class Cli {
     }
     async CliBin() {
         try {
-            const flagshipDirWindows = (0, os_1.homedir)() + "/flagship";
-            const flagshipDir = (0, os_1.homedir)() + "\\flagship";
+            const flagshipDir = (0, os_1.homedir)() + "/flagship";
+            const flagshipDirWindows = (0, os_1.homedir)() + "\\flagship";
             if (process.platform.toString() === 'win32') {
                 return `${flagshipDirWindows}\\${exports.CliVersion}\\flagship.exe`;
             }
