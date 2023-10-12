@@ -1,7 +1,7 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 351:
+/***/ 482:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -28,7 +28,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.issue = exports.issueCommand = void 0;
 const os = __importStar(__nccwpck_require__(37));
-const utils_1 = __nccwpck_require__(278);
+const utils_1 = __nccwpck_require__(641);
 /**
  * Commands
  *
@@ -100,7 +100,7 @@ function escapeProperty(s) {
 
 /***/ }),
 
-/***/ 186:
+/***/ 490:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -135,12 +135,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getIDToken = exports.getState = exports.saveState = exports.group = exports.endGroup = exports.startGroup = exports.info = exports.notice = exports.warning = exports.error = exports.debug = exports.isDebug = exports.setFailed = exports.setCommandEcho = exports.setOutput = exports.getBooleanInput = exports.getMultilineInput = exports.getInput = exports.addPath = exports.setSecret = exports.exportVariable = exports.ExitCode = void 0;
-const command_1 = __nccwpck_require__(351);
-const file_command_1 = __nccwpck_require__(717);
-const utils_1 = __nccwpck_require__(278);
+const command_1 = __nccwpck_require__(482);
+const file_command_1 = __nccwpck_require__(25);
+const utils_1 = __nccwpck_require__(641);
 const os = __importStar(__nccwpck_require__(37));
 const path = __importStar(__nccwpck_require__(17));
-const oidc_utils_1 = __nccwpck_require__(41);
+const oidc_utils_1 = __nccwpck_require__(629);
 /**
  * The code to exit an action
  */
@@ -425,17 +425,17 @@ exports.getIDToken = getIDToken;
 /**
  * Summary exports
  */
-var summary_1 = __nccwpck_require__(327);
+var summary_1 = __nccwpck_require__(984);
 Object.defineProperty(exports, "summary", ({ enumerable: true, get: function () { return summary_1.summary; } }));
 /**
  * @deprecated use core.summary
  */
-var summary_2 = __nccwpck_require__(327);
+var summary_2 = __nccwpck_require__(984);
 Object.defineProperty(exports, "markdownSummary", ({ enumerable: true, get: function () { return summary_2.markdownSummary; } }));
 /**
  * Path exports
  */
-var path_utils_1 = __nccwpck_require__(981);
+var path_utils_1 = __nccwpck_require__(209);
 Object.defineProperty(exports, "toPosixPath", ({ enumerable: true, get: function () { return path_utils_1.toPosixPath; } }));
 Object.defineProperty(exports, "toWin32Path", ({ enumerable: true, get: function () { return path_utils_1.toWin32Path; } }));
 Object.defineProperty(exports, "toPlatformPath", ({ enumerable: true, get: function () { return path_utils_1.toPlatformPath; } }));
@@ -443,7 +443,7 @@ Object.defineProperty(exports, "toPlatformPath", ({ enumerable: true, get: funct
 
 /***/ }),
 
-/***/ 717:
+/***/ 25:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -474,8 +474,8 @@ exports.prepareKeyValueMessage = exports.issueFileCommand = void 0;
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const fs = __importStar(__nccwpck_require__(147));
 const os = __importStar(__nccwpck_require__(37));
-const uuid_1 = __nccwpck_require__(840);
-const utils_1 = __nccwpck_require__(278);
+const uuid_1 = __nccwpck_require__(668);
+const utils_1 = __nccwpck_require__(641);
 function issueFileCommand(command, message) {
     const filePath = process.env[`GITHUB_${command}`];
     if (!filePath) {
@@ -508,7 +508,7 @@ exports.prepareKeyValueMessage = prepareKeyValueMessage;
 
 /***/ }),
 
-/***/ 41:
+/***/ 629:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -524,9 +524,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.OidcClient = void 0;
-const http_client_1 = __nccwpck_require__(255);
-const auth_1 = __nccwpck_require__(526);
-const core_1 = __nccwpck_require__(186);
+const http_client_1 = __nccwpck_require__(9);
+const auth_1 = __nccwpck_require__(536);
+const core_1 = __nccwpck_require__(490);
 class OidcClient {
     static createHttpClient(allowRetry = true, maxRetry = 10) {
         const requestOptions = {
@@ -592,7 +592,7 @@ exports.OidcClient = OidcClient;
 
 /***/ }),
 
-/***/ 981:
+/***/ 209:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -657,7 +657,7 @@ exports.toPlatformPath = toPlatformPath;
 
 /***/ }),
 
-/***/ 327:
+/***/ 984:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -947,7 +947,7 @@ exports.summary = _summary;
 
 /***/ }),
 
-/***/ 278:
+/***/ 641:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -994,7 +994,7 @@ exports.toCommandProperties = toCommandProperties;
 
 /***/ }),
 
-/***/ 526:
+/***/ 536:
 /***/ (function(__unused_webpack_module, exports) {
 
 "use strict";
@@ -1082,7 +1082,7 @@ exports.PersonalAccessTokenCredentialHandler = PersonalAccessTokenCredentialHand
 
 /***/ }),
 
-/***/ 255:
+/***/ 9:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -1120,8 +1120,8 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.HttpClient = exports.isHttps = exports.HttpClientResponse = exports.HttpClientError = exports.getProxyUrl = exports.MediaTypes = exports.Headers = exports.HttpCodes = void 0;
 const http = __importStar(__nccwpck_require__(685));
 const https = __importStar(__nccwpck_require__(687));
-const pm = __importStar(__nccwpck_require__(835));
-const tunnel = __importStar(__nccwpck_require__(294));
+const pm = __importStar(__nccwpck_require__(112));
+const tunnel = __importStar(__nccwpck_require__(855));
 var HttpCodes;
 (function (HttpCodes) {
     HttpCodes[HttpCodes["OK"] = 200] = "OK";
@@ -1707,7 +1707,7 @@ const lowercaseKeys = (obj) => Object.keys(obj).reduce((c, k) => ((c[k.toLowerCa
 
 /***/ }),
 
-/***/ 835:
+/***/ 112:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -1796,15 +1796,15 @@ function isLoopbackAddress(host) {
 
 /***/ }),
 
-/***/ 294:
+/***/ 855:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
-module.exports = __nccwpck_require__(219);
+module.exports = __nccwpck_require__(953);
 
 
 /***/ }),
 
-/***/ 219:
+/***/ 953:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2076,7 +2076,7 @@ exports.debug = debug; // for test
 
 /***/ }),
 
-/***/ 840:
+/***/ 668:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2140,29 +2140,29 @@ Object.defineProperty(exports, "parse", ({
   }
 }));
 
-var _v = _interopRequireDefault(__nccwpck_require__(628));
+var _v = _interopRequireDefault(__nccwpck_require__(268));
 
-var _v2 = _interopRequireDefault(__nccwpck_require__(409));
+var _v2 = _interopRequireDefault(__nccwpck_require__(622));
 
-var _v3 = _interopRequireDefault(__nccwpck_require__(122));
+var _v3 = _interopRequireDefault(__nccwpck_require__(987));
 
-var _v4 = _interopRequireDefault(__nccwpck_require__(120));
+var _v4 = _interopRequireDefault(__nccwpck_require__(891));
 
-var _nil = _interopRequireDefault(__nccwpck_require__(332));
+var _nil = _interopRequireDefault(__nccwpck_require__(646));
 
-var _version = _interopRequireDefault(__nccwpck_require__(595));
+var _version = _interopRequireDefault(__nccwpck_require__(652));
 
-var _validate = _interopRequireDefault(__nccwpck_require__(900));
+var _validate = _interopRequireDefault(__nccwpck_require__(724));
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(950));
+var _stringify = _interopRequireDefault(__nccwpck_require__(783));
 
-var _parse = _interopRequireDefault(__nccwpck_require__(746));
+var _parse = _interopRequireDefault(__nccwpck_require__(765));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 
-/***/ 569:
+/***/ 630:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2192,7 +2192,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 332:
+/***/ 646:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -2207,7 +2207,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 746:
+/***/ 765:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2218,7 +2218,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _validate = _interopRequireDefault(__nccwpck_require__(900));
+var _validate = _interopRequireDefault(__nccwpck_require__(724));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2259,7 +2259,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 814:
+/***/ 54:
 /***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
@@ -2274,7 +2274,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 807:
+/***/ 179:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2305,7 +2305,7 @@ function rng() {
 
 /***/ }),
 
-/***/ 274:
+/***/ 259:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2335,7 +2335,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 950:
+/***/ 783:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2346,7 +2346,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _validate = _interopRequireDefault(__nccwpck_require__(900));
+var _validate = _interopRequireDefault(__nccwpck_require__(724));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2381,7 +2381,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 628:
+/***/ 268:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2392,9 +2392,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _rng = _interopRequireDefault(__nccwpck_require__(807));
+var _rng = _interopRequireDefault(__nccwpck_require__(179));
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(950));
+var _stringify = _interopRequireDefault(__nccwpck_require__(783));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2495,7 +2495,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 409:
+/***/ 622:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2506,9 +2506,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _v = _interopRequireDefault(__nccwpck_require__(998));
+var _v = _interopRequireDefault(__nccwpck_require__(257));
 
-var _md = _interopRequireDefault(__nccwpck_require__(569));
+var _md = _interopRequireDefault(__nccwpck_require__(630));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2518,7 +2518,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 998:
+/***/ 257:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2530,9 +2530,9 @@ Object.defineProperty(exports, "__esModule", ({
 exports["default"] = _default;
 exports.URL = exports.DNS = void 0;
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(950));
+var _stringify = _interopRequireDefault(__nccwpck_require__(783));
 
-var _parse = _interopRequireDefault(__nccwpck_require__(746));
+var _parse = _interopRequireDefault(__nccwpck_require__(765));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2603,7 +2603,7 @@ function _default(name, version, hashfunc) {
 
 /***/ }),
 
-/***/ 122:
+/***/ 987:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2614,9 +2614,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _rng = _interopRequireDefault(__nccwpck_require__(807));
+var _rng = _interopRequireDefault(__nccwpck_require__(179));
 
-var _stringify = _interopRequireDefault(__nccwpck_require__(950));
+var _stringify = _interopRequireDefault(__nccwpck_require__(783));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2647,7 +2647,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 120:
+/***/ 891:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2658,9 +2658,9 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _v = _interopRequireDefault(__nccwpck_require__(998));
+var _v = _interopRequireDefault(__nccwpck_require__(257));
 
-var _sha = _interopRequireDefault(__nccwpck_require__(274));
+var _sha = _interopRequireDefault(__nccwpck_require__(259));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2670,7 +2670,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 900:
+/***/ 724:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2681,7 +2681,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _regex = _interopRequireDefault(__nccwpck_require__(814));
+var _regex = _interopRequireDefault(__nccwpck_require__(54));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2694,7 +2694,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 595:
+/***/ 652:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
 "use strict";
@@ -2705,7 +2705,7 @@ Object.defineProperty(exports, "__esModule", ({
 }));
 exports["default"] = void 0;
 
-var _validate = _interopRequireDefault(__nccwpck_require__(900));
+var _validate = _interopRequireDefault(__nccwpck_require__(724));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2722,7 +2722,7 @@ exports["default"] = _default;
 
 /***/ }),
 
-/***/ 399:
+/***/ 862:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 "use strict";
@@ -2752,23 +2752,22 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.run = void 0;
-const core = __importStar(__nccwpck_require__(186));
-const wait_1 = __nccwpck_require__(259);
+const core = __importStar(__nccwpck_require__(490));
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
 async function run() {
     try {
-        const ms = core.getInput('milliseconds');
+        const ms = core.getInput('resource');
+        const ms1 = core.getInput('method');
+        const ms2 = core.getInput('flags');
+        const o = `Hello ${ms} ${ms1} ${ms2}`;
         // Debug logs are only output if the `ACTIONS_STEP_DEBUG` secret is true
-        core.debug(`Waiting ${ms} milliseconds ...`);
+        core.debug(o);
         // Log the current timestamp, wait, then log the new timestamp
-        core.debug(new Date().toTimeString());
-        await (0, wait_1.wait)(parseInt(ms, 10));
-        core.debug(new Date().toTimeString());
         // Set outputs for other workflow steps to use
-        core.setOutput('time', new Date().toTimeString());
+        core.setOutput('result', o);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
@@ -2777,31 +2776,6 @@ async function run() {
     }
 }
 exports.run = run;
-
-
-/***/ }),
-
-/***/ 259:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.wait = void 0;
-/**
- * Wait for a number of milliseconds.
- * @param milliseconds The number of milliseconds to wait.
- * @returns {Promise<string>} Resolves with 'done!' after the wait is over.
- */
-async function wait(milliseconds) {
-    return new Promise(resolve => {
-        if (isNaN(milliseconds)) {
-            throw new Error('milliseconds not a number');
-        }
-        setTimeout(() => resolve('done!'), milliseconds);
-    });
-}
-exports.wait = wait;
 
 
 /***/ }),
@@ -2942,7 +2916,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 /**
  * The entrypoint for the action.
  */
-const main_1 = __nccwpck_require__(399);
+const main_1 = __nccwpck_require__(862);
 // eslint-disable-next-line @typescript-eslint/no-floating-promises
 (0, main_1.run)();
 
