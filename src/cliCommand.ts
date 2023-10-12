@@ -9,7 +9,7 @@ export const CliVersion = '0.7.3'; // 'v' in v0.7.3 is added in download url
 export const actionVersion = '0.0.1'
 
 export class Cli {
-    
+
     exec(command: string, options: ExecOptions): Promise<{ stdout: string; stderr: string }> {
         return new Promise<{ stdout: string; stderr: string }>((resolve, reject) => {
           exec(command + ' --user-agent=flagship-ext-action/v' + actionVersion, options, (error, stdout, stderr) => {
@@ -23,8 +23,8 @@ export class Cli {
     
       async CliBin(): Promise<string> {
         try {
-        const flagshipDirWindows = homedir() + "/flagship";
-        const flagshipDir = homedir() + "\\flagship";
+        const flagshipDir = homedir() + "/flagship";
+        const flagshipDirWindows = homedir() + "\\flagship";
 
           if (process.platform.toString() === 'win32') {
             return `${flagshipDirWindows}\\${CliVersion}\\flagship.exe`;
