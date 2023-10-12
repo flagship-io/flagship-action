@@ -1,18 +1,25 @@
-name: 'The name of your action here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'Flagship'
+description: 'CLI in action'
+author: 'Chadi LAOULAOU <chadiii> | AB Tasty'
 
 # Define your inputs here.
 inputs:
-  milliseconds:
-    description: 'Your input description here'
+  resource:
+    description: 'Flagship resource'
     required: true
-    default: '1000'
+  
+  method:
+    description: 'method for the resource'
+    required: true
+  
+  flags:
+    description: 'flags for the method'
+    required: false
 
 # Define your outputs here.
 outputs:
-  time:
-    description: 'Your output description here'
+  result:
+    description: 'result of the cli'
 
 runs:
   using: node20

@@ -1,16 +1,16 @@
 {
-  "name": "typescript-action",
+  "name": "flagship-action",
   "description": "GitHub Actions TypeScript template",
   "version": "0.0.0",
   "author": "",
   "private": true,
-  "homepage": "https://github.com/actions/typescript-action",
+  "homepage": "https://github.com/flagship-io/flagship-action",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/actions/typescript-action.git"
+    "url": "git+https://github.com/flagship-io/flagship-action.git"
   },
   "bugs": {
-    "url": "https://github.com/actions/typescript-action/issues"
+    "url": "https://github.com/flagship-io/flagship-action/issues"
   },
   "keywords": [
     "actions",
