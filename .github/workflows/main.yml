@@ -9,14 +9,25 @@ jobs:
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v4
+      
       - name: Hello world action step
         uses: ./ # Uses an action in the root directory
         id: hello
         with:
-          resource: 'resource'
-          method: 'load'
-          flags: '-f file.yaml'
+          resource: 'configuration'
+          method: 'create'
+          flags: "-i,ciAction,-s,csAction,-a,aAction,-e,eAction"
+      
+      - name: Get the output time
+        run: echo "The time was ${{ steps.hello.outputs.result }}"
+      
+      - name: Hello world action ste
+        uses: ./ # Uses an action in the root directory
+        id: hello1
+        with:
+          resource: 'configuration'
+          method: 'list'
 
       # Use the output from the `hello` step
       - name: Get the output time
-        run: echo "The time was ${{ steps.hello.outputs.result }}"
+        run: echo "The time was ${{ steps.hello1.outputs.result }}"
