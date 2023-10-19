@@ -30,6 +30,8 @@ jobs:
       - name: List version
         run: ls flagship/0.7.3
 
+      - name: Run flagship version
+        run: flagship/0.7.3/flagship version
 
       # Use the output from the `hello` step
       - name: Get the output time
