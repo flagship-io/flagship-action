@@ -10,7 +10,7 @@ import { CliDownloader } from './cliDownloader';
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-export function run(): void {
+export async function run(): Promise<void> {
   try {
     const flagshipDir = "flagship";
     const binaryDir = `${flagshipDir}/${CliVersion}`;

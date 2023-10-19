@@ -4,4 +4,10 @@
 import { run } from './main'
 
 
-run()
+(async ()=> {
+    try {
+        await run()
+    } catch (e) {
+        console.log(e)
+    }
+})();
