@@ -32297,8 +32297,8 @@ class Cli {
     }
     async CliBin() {
         try {
-            const flagshipDir = "./flagship";
-            const flagshipDirWindows = ".\\flagship";
+            const flagshipDir = "flagship";
+            const flagshipDirWindows = "\\flagship";
             if (process.platform.toString() === 'win32') {
                 return `${flagshipDirWindows}\\${exports.CliVersion}\\flagship.exe`;
             }
@@ -32392,8 +32392,8 @@ const axios_1 = __importDefault(__nccwpck_require__(3265));
 const zlib_1 = __nccwpck_require__(9796);
 const cliCommand_1 = __nccwpck_require__(9810);
 async function CliDownloader(binaryDir) {
-    const flagshipDir = "./flagship";
-    const cliTar = `./flagship/flagship-${cliCommand_1.CliVersion}.tar.gz`;
+    const flagshipDir = "flagship";
+    const cliTar = `flagship/flagship-${cliCommand_1.CliVersion}.tar.gz`;
     async function installDir() {
         let platform = process.platform.toString();
         let cliUrl;

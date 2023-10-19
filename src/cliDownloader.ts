@@ -6,8 +6,8 @@ import { createGunzip } from 'zlib';
 import { CliVersion } from './cliCommand';
 
 export async function CliDownloader(binaryDir: string) {
-  const flagshipDir = "./flagship";
-  const cliTar = `./flagship/flagship-${CliVersion}.tar.gz`;
+  const flagshipDir = "flagship";
+  const cliTar = `flagship/flagship-${CliVersion}.tar.gz`;
 
   async function installDir(): Promise<void> {
     let platform = process.platform.toString();
