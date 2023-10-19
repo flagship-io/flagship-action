@@ -27,8 +27,9 @@ jobs:
       - name: List Flagship
         run: ls flagship
 
-      - name: run Flagship
-        run: flagship version
+      - name: List version
+        run: ls flagship/0.7.3
+
 
       # Use the output from the `hello` step
       - name: Get the output time
