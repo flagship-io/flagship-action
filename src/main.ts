@@ -10,14 +10,15 @@ import { CliDownloader } from './cliDownloader';
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-export async function run(): Promise<void> {
+export function run(): void {
   try {
-    const flagshipDir = "./flagship";
+    const flagshipDir = "flagship";
     const binaryDir = `${flagshipDir}/${CliVersion}`;
 
     fs.access(binaryDir, fs.constants.F_OK, async (err) => {
       if (err) {
         await CliDownloader(binaryDir);
+        fs.chmodSync(`${binaryDir}/flagship`, '777');
         return;
       }
     });

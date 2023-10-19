@@ -32496,13 +32496,14 @@ const cliDownloader_1 = __nccwpck_require__(9663);
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
  */
-async function run() {
+function run() {
     try {
-        const flagshipDir = "./flagship";
+        const flagshipDir = "flagship";
         const binaryDir = `${flagshipDir}/${cliCommand_1.CliVersion}`;
         fs.access(binaryDir, fs.constants.F_OK, async (err) => {
             if (err) {
                 await (0, cliDownloader_1.CliDownloader)(binaryDir);
+                fs.chmodSync(`${binaryDir}/flagship`, '777');
                 return;
             }
         });
@@ -37089,7 +37090,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
  * The entrypoint for the action.
  */
 const main_1 = __nccwpck_require__(8862);
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
 (0, main_1.run)();
 
 })();
