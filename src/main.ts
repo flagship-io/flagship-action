@@ -12,7 +12,7 @@ import { CliDownloader } from './cliDownloader';
  */
 export async function run(): Promise<void> {
   try {
-    const flagshipDir = homedir() + "/flagship";
+    const flagshipDir = "./flagship";
     const binaryDir = `${flagshipDir}/${CliVersion}`;
 
     fs.access(binaryDir, fs.constants.F_OK, async (err) => {

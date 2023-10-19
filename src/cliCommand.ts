@@ -23,8 +23,8 @@ export class Cli {
     
       async CliBin(): Promise<string> {
         try {
-        const flagshipDir = homedir() + "/flagship";
-        const flagshipDirWindows = homedir() + "\\flagship";
+        const flagshipDir = "./flagship";
+        const flagshipDirWindows = ".\\flagship";
 
           if (process.platform.toString() === 'win32') {
             return `${flagshipDirWindows}\\${CliVersion}\\flagship.exe`;

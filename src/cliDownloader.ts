@@ -3,12 +3,11 @@ import * as tar from 'tar-fs';
 import axios from 'axios';
 import { rimraf } from 'rimraf';
 import { createGunzip } from 'zlib';
-import { homedir } from 'os'
 import { CliVersion } from './cliCommand';
 
 export async function CliDownloader(binaryDir: string) {
-  const flagshipDir = homedir() + "/flagship";
-  const cliTar = homedir() + `/flagship/flagship-${CliVersion}.tar.gz`;
+  const flagshipDir = "./flagship";
+  const cliTar = `./flagship/flagship-${CliVersion}.tar.gz`;
 
   async function installDir(): Promise<void> {
     let platform = process.platform.toString();
@@ -68,11 +67,6 @@ export async function CliDownloader(binaryDir: string) {
   }
 
   async function download(): Promise<void> {
-    try {
-      await rimraf(`${flagshipDir}/*`);
-    } catch (err) {
-      console.error(err);
-    }
     await installDir();
   }
 
