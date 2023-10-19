@@ -25,9 +25,7 @@ export async function run(): Promise<void> {
     const cli = new Cli()
     const version = cli.Version()
 
-    core.setOutput("result", version)
-
-    
+    core.setOutput("result", version)    
   } catch (err) {
     
   }

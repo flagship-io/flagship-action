@@ -20,13 +20,9 @@ jobs:
       
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.result }}"
-      
-      - name: Hello world action ste
-        uses: ./ # Uses an action in the root directory
-        id: hello1
-        with:
-          resource: 'configuration'
-          method: 'list'
+
+      - name: List ls
+        run: ls
 
       # Use the output from the `hello` step
       - name: Get the output time
