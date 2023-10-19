@@ -5,9 +5,5 @@ import { run } from './main'
 
 
 (async ()=> {
-    try {
-        await run()
-    } catch (e) {
-        console.log(e)
-    }
+    await run()
 })();

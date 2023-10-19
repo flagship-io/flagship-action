@@ -32282,6 +32282,7 @@ const core = __importStar(__nccwpck_require__(1490));
 const child_process_1 = __nccwpck_require__(2081);
 const path_1 = __nccwpck_require__(1017);
 const fs = __importStar(__nccwpck_require__(7147));
+const error_1 = __nccwpck_require__(4584);
 exports.CliVersion = '0.7.3'; // 'v' in v0.7.3 is added in download url
 exports.actionVersion = '0.0.1';
 class Cli {
@@ -32309,7 +32310,7 @@ class Cli {
             return `${flagshipDir}/${exports.CliVersion}/flagship`;
         }
         catch (err) {
-            console.error(err);
+            (0, error_1.setError)(`Error: ${err}`, false);
             return err.error;
         }
     }
@@ -32334,17 +32335,18 @@ class Cli {
         try {
             const cliBin = await this.CliBin();
             if (!cliBin) {
-                return '';
+                (0, error_1.setError)(`Error: binary not found`, false);
             }
             const command = `${cliBin} version`;
             const output = await this.exec(command, {});
             if (output.stderr) {
-                return '';
+                (0, error_1.setError)(`Error: ${output.stderr}`, false);
             }
             return output.stdout;
         }
         catch (err) {
-            return err.toString();
+            (0, error_1.setError)(`Error: ${err}`, false);
+            return "";
         }
     }
 }
@@ -32391,6 +32393,7 @@ const tar = __importStar(__nccwpck_require__(8475));
 const axios_1 = __importDefault(__nccwpck_require__(3265));
 const zlib_1 = __nccwpck_require__(9796);
 const cliCommand_1 = __nccwpck_require__(9810);
+const error_1 = __nccwpck_require__(4584);
 async function CliDownloader(binaryDir) {
     const flagshipDir = "flagship";
     const cliTar = `flagship/flagship-${cliCommand_1.CliVersion}.tar.gz`;
@@ -32445,7 +32448,7 @@ async function CliDownloader(binaryDir) {
             });
         }
         catch (err) {
-            console.error(err);
+            (0, error_1.setError)(`Error: ${err}`, false);
         }
     }
     async function download() {
@@ -32454,6 +32457,48 @@ async function CliDownloader(binaryDir) {
     await download();
 }
 exports.CliDownloader = CliDownloader;
+
+
+/***/ }),
+
+/***/ 4584:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.setError = void 0;
+const core = __importStar(__nccwpck_require__(1490));
+const setError = (message, failCi) => {
+    failCi ? core.setFailed(message) : core.warning(message);
+    if (failCi) {
+        process.exit();
+    }
+};
+exports.setError = setError;
 
 
 /***/ }),
@@ -37091,12 +37136,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
  */
 const main_1 = __nccwpck_require__(8862);
 (async () => {
-    try {
-        await (0, main_1.run)();
-    }
-    catch (e) {
-        console.log(e);
-    }
+    await (0, main_1.run)();
 })();
 
 })();

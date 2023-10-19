@@ -4,6 +4,7 @@ import { exec, ExecOptions } from 'child_process';
 import { join } from 'path';
 import { homedir } from 'os'
 import * as fs from 'fs';
+import { setError } from './error';
 
 export const CliVersion = '0.7.3'; // 'v' in v0.7.3 is added in download url
 export const actionVersion = '0.0.1'
@@ -35,7 +36,7 @@ export class Cli {
           await fs.promises.access(join(flagshipDir, `${CliVersion}/flagship`));
           return `${flagshipDir}/${CliVersion}/flagship`;
         } catch (err: any) {
-          console.error(err);
+          setError(`Error: ${err}`, false)
           return err.error;
         }
       }
@@ -61,16 +62,17 @@ export class Cli {
         try {
           const cliBin = await this.CliBin();
           if (!cliBin) {
-            return '';
+            setError(`Error: binary not found`, false)
           }
           const command = `${cliBin} version`;
           const output = await this.exec(command, {});
           if (output.stderr) {
-            return '';
+            setError(`Error: ${output.stderr}`, false)
           }
           return output.stdout;
         } catch (err: any) {
-            return err.toString()
+          setError(`Error: ${err}`, false)
+          return ""
         }
       }
 }

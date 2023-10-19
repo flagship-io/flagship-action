@@ -4,6 +4,7 @@ import axios from 'axios';
 import { rimraf } from 'rimraf';
 import { createGunzip } from 'zlib';
 import { CliVersion } from './cliCommand';
+import { setError } from 'src/error';
 
 export async function CliDownloader(binaryDir: string) {
   const flagshipDir = "flagship";
@@ -62,7 +63,7 @@ export async function CliDownloader(binaryDir: string) {
         fs.createReadStream(cliTar).pipe(unzip).pipe(tar.extract(binaryDir));
       });
     } catch (err) {
-      console.error(err);
+      setError(`Error: ${err}`, false)
     }
   }
 
