@@ -24,6 +24,12 @@ jobs:
       - name: List ls
         run: ls
 
+      - name: List Flagship
+        run: ls flagship
+
+      - name: run Flagship
+        run: flagship version
+
       # Use the output from the `hello` step
       - name: Get the output time
         run: echo "The time was ${{ steps.hello1.outputs.result }}"
