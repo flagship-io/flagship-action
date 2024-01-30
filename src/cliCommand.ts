@@ -5,6 +5,7 @@ import { join } from 'path';
 import { homedir } from 'os'
 import * as fs from 'fs';
 import { setError } from './error';
+import { CliDownloader } from './cliDownloader';
 
 export const CliVersion = '0.7.3'; // 'v' in v0.7.3 is added in download url
 export const actionVersion = '0.0.1'
@@ -24,8 +25,8 @@ export class Cli {
     
       async CliBin(): Promise<string> {
         try {
-        const flagshipDir = "flagship";
-        const flagshipDirWindows = "\\flagship";
+          const flagshipDir = "flagship";
+          const flagshipDirWindows = "\\flagship";
 
           if (process.platform.toString() === 'win32') {
             return `${flagshipDirWindows}\\${CliVersion}\\flagship.exe`;
@@ -36,7 +37,7 @@ export class Cli {
           await fs.promises.access(join(flagshipDir, `${CliVersion}/flagship`));
           return `${flagshipDir}/${CliVersion}/flagship`;
         } catch (err: any) {
-          setError(`Error: ${err}`, false)
+          setError(`Error: ${err.toString()}`, false)
           return err.error;
         }
       }

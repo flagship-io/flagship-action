@@ -32310,7 +32310,7 @@ class Cli {
             return `${flagshipDir}/${exports.CliVersion}/flagship`;
         }
         catch (err) {
-            (0, error_1.setError)(`Error: ${err}`, false);
+            (0, error_1.setError)(`Error: ${err.toString()}`, false);
             return err.error;
         }
     }
@@ -32394,67 +32394,63 @@ const axios_1 = __importDefault(__nccwpck_require__(3265));
 const zlib_1 = __nccwpck_require__(9796);
 const cliCommand_1 = __nccwpck_require__(9810);
 const error_1 = __nccwpck_require__(4584);
+async function installDir(cliTar, flagshipDir, binaryDir) {
+    let platform = process.platform.toString();
+    let cliUrl;
+    let arch;
+    const file = fs.createWriteStream(cliTar);
+    const unzip = (0, zlib_1.createGunzip)();
+    if (!fs.existsSync(flagshipDir)) {
+        fs.mkdirSync(flagshipDir);
+    }
+    if (!fs.existsSync(binaryDir)) {
+        fs.mkdirSync(binaryDir);
+    }
+    if (platform === 'win32') {
+        platform = 'windows';
+    }
+    switch (process.arch) {
+        case 'x64':
+            arch = 'amd64';
+            break;
+        case 'ia32':
+            arch = '386';
+            break;
+        default:
+            arch = process.arch;
+    }
+    if (platform === 'darwin') {
+        cliUrl = `https://github.com/flagship-io/flagship/releases/download/v${cliCommand_1.CliVersion}/flagship_${cliCommand_1.CliVersion}_darwin_all.tar.gz`;
+    }
+    else {
+        cliUrl = `https://github.com/flagship-io/flagship/releases/download/v${cliCommand_1.CliVersion}/flagship_${cliCommand_1.CliVersion}_${platform}_${arch}.tar.gz`;
+    }
+    try {
+        const archivedCLI = await axios_1.default.get(cliUrl, {
+            responseType: 'arraybuffer',
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/gzip',
+            },
+        });
+        file.write(archivedCLI.data);
+        file.end();
+    }
+    catch (err) {
+        console.error(err);
+    }
+    try {
+        console.log("here");
+        fs.createReadStream("flagship/flagship-0.7.3.tar.gz").pipe(unzip).pipe(tar.extract("flagship/0.7.3"));
+    }
+    catch (err) {
+        (0, error_1.setError)(`Error: ${err.toString()}`, false);
+    }
+}
 async function CliDownloader(binaryDir) {
     const flagshipDir = "flagship";
-    const cliTar = `flagship/flagship-${cliCommand_1.CliVersion}.tar.gz`;
-    async function installDir() {
-        let platform = process.platform.toString();
-        let cliUrl;
-        let arch;
-        const file = fs.createWriteStream(cliTar);
-        const unzip = (0, zlib_1.createGunzip)();
-        if (!fs.existsSync(flagshipDir)) {
-            fs.mkdirSync(flagshipDir);
-        }
-        if (!fs.existsSync(binaryDir)) {
-            fs.mkdirSync(binaryDir);
-        }
-        if (platform === 'win32') {
-            platform = 'windows';
-        }
-        switch (process.arch) {
-            case 'x64':
-                arch = 'amd64';
-                break;
-            case 'ia32':
-                arch = '386';
-                break;
-            default:
-                arch = process.arch;
-        }
-        if (platform === 'darwin') {
-            cliUrl = `https://github.com/flagship-io/flagship/releases/download/v${cliCommand_1.CliVersion}/flagship_${cliCommand_1.CliVersion}_darwin_all.tar.gz`;
-        }
-        else {
-            cliUrl = `https://github.com/flagship-io/flagship/releases/download/v${cliCommand_1.CliVersion}/flagship_${cliCommand_1.CliVersion}_${platform}_${arch}.tar.gz`;
-        }
-        try {
-            const archivedCLI = await axios_1.default.get(cliUrl, {
-                responseType: 'arraybuffer',
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/gzip',
-                },
-            });
-            file.write(archivedCLI.data);
-            file.end();
-        }
-        catch (err) {
-            console.error(err);
-        }
-        try {
-            file.on('finish', () => {
-                fs.createReadStream(cliTar).pipe(unzip).pipe(tar.extract(binaryDir));
-            });
-        }
-        catch (err) {
-            (0, error_1.setError)(`Error: ${err}`, false);
-        }
-    }
-    async function download() {
-        await installDir();
-    }
-    await download();
+    const cliTar = `flagship/flagship-0.7.3.tar.gz`;
+    await installDir(cliTar, flagshipDir, binaryDir);
 }
 exports.CliDownloader = CliDownloader;
 
@@ -32543,18 +32539,19 @@ const cliDownloader_1 = __nccwpck_require__(9663);
  */
 async function run() {
     try {
-        const flagshipDir = "flagship";
-        const binaryDir = `${flagshipDir}/${cliCommand_1.CliVersion}`;
+        const binaryDir = `flagship/0.7.3`;
         fs.access(binaryDir, fs.constants.F_OK, async (err) => {
             if (err) {
                 await (0, cliDownloader_1.CliDownloader)(binaryDir);
-                fs.chmodSync(`${binaryDir}/flagship`, '777');
-                return;
             }
+            const cli = new cliCommand_1.Cli();
+            console.log(await cli.CliBin());
+            const version = await cli.Version();
+            const version1 = cli.Version();
+            console.log(version);
+            console.log(version1);
+            core.setOutput("result", version);
         });
-        const cli = new cliCommand_1.Cli();
-        const version = cli.Version();
-        core.setOutput("result", version);
     }
     catch (err) {
     }
@@ -37135,9 +37132,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
  * The entrypoint for the action.
  */
 const main_1 = __nccwpck_require__(8862);
-(async () => {
-    await (0, main_1.run)();
-})();
+(0, main_1.run)();
 
 })();
 

@@ -24,3 +24,53 @@ outputs:
 runs:
   using: node20
   main: dist/index.js
+
+
+jobs:
+
+  - name: create project
+    uses: flagship-action@v1
+    with:
+      - configuation: -i=i,-s=s,-a=a,-e=e
+      - resource: project
+      - method: create
+      - flags: -n=guillaume-project
+
+  - name: create flags
+    uses: flagship-action@v1
+    with:
+      - configuation: -i=i,-s=s,-a=a,-e=e
+      - resource: flag
+      - method: create
+      - flags: -n=guillaume-project
+
+  - name: create multiple resource
+    id: createResource
+    uses: flagship-action@v1
+    with:
+      - configuation: -i=i,-s=s,-a=a,-e=e
+      - resource: resource
+      - method: load
+      - flags: -f=./file.yaml, -o=./resourceCreated.json
+
+      // add createdTime in resourceCreated
+
+  // create a file in parent directory
+
+  - name: Test unitaire
+    run : jest 
+
+  - name: Delete all flagship created resource in this job
+    uses: flagship-action@v1
+    with:
+      - configuation: -i=i,-s=s,-a=a,-e=e
+      - resource: resource
+      - method: purge
+      - flags: -f=./resourceCreated.json, --filter=project,campaign
+
+  //load create a file in parent directory and delete the resource present in flags
+
+
+  flagship resource load -f=./file.yaml --outputfile=./abtest.json
+  flagship resource purge --input-file=./abtest.json -f=project,campaign
+

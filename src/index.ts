@@ -4,6 +4,4 @@
 import { run } from './main'
 
 
-(async ()=> {
-    await run()
-})();
+run()

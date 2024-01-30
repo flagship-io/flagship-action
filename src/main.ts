@@ -12,21 +12,23 @@ import { CliDownloader } from './cliDownloader';
  */
 export async function run(): Promise<void> {
   try {
-    const flagshipDir = "flagship";
-    const binaryDir = `${flagshipDir}/${CliVersion}`;
-
+    const binaryDir = `flagship/0.7.3`;
     fs.access(binaryDir, fs.constants.F_OK, async (err) => {
       if (err) {
         await CliDownloader(binaryDir);
-        fs.chmodSync(`${binaryDir}/flagship`, '777');
-        return;
       }
+      
+      const cli = new Cli();
+      console.log(await cli.CliBin())
+      const version = await cli.Version()
+      const version1 = cli.Version()
+      console.log(version)
+      console.log(version1)
+          
+      core.setOutput("result", version)
     });
 
-    const cli = new Cli()
-    const version = cli.Version()
-
-    core.setOutput("result", version)    
+        
   } catch (err) {
     
   }
