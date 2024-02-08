@@ -61,7 +61,7 @@ export async function CliDownloader(binaryDir: string) {
 
     try {
       file.on('finish', () => {
-        fs.createReadStream(cliTar).pipe(unzip).pipe(tar.extract(flagshipDir))
+        fs.createReadStream(cliTar).pipe(tar.extract(binaryDir))
       })
     } catch (err) {
       setError(`Error: ${err}`, false)

@@ -31606,7 +31606,7 @@ async function CliDownloader(binaryDir) {
         }
         try {
             file.on('finish', () => {
-                fs.createReadStream(cliTar).pipe(unzip).pipe(tar.extract(flagshipDir));
+                fs.createReadStream(cliTar).pipe(tar.extract(binaryDir));
             });
         }
         catch (err) {
