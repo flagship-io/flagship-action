@@ -3,7 +3,6 @@
  */
 import { run } from './main'
 
-
-(async ()=> {
-    await run()
-})();
+;(async () => {
+  await run()
+})()
