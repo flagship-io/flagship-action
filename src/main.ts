@@ -15,17 +15,12 @@ export async function run(): Promise<void> {
     const flagshipDir = 'flagship'
     const binaryDir = `${flagshipDir}/${CliVersion}`
 
-    fs.access(binaryDir, fs.constants.F_OK, async err => {
-      if (err) {
-        await CliDownloader(binaryDir)
-        fs.chmodSync(`${binaryDir}/flagship`, '777')
-        return
-      }
-    })
+    if (!fs.existsSync(binaryDir)) {
+      await CliDownloader(binaryDir)
+    }
 
     const cli = new Cli()
-    const version = cli.Version()
-
+    const version = await cli.Version()
     core.setOutput('result', version)
   } catch (err) {}
 }

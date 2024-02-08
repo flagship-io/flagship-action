@@ -5,6 +5,7 @@ import { rimraf } from 'rimraf'
 import { createGunzip } from 'zlib'
 import { CliVersion } from './cliCommand'
 import { setError } from 'src/error'
+import decompress from 'decompress'
 
 export async function CliDownloader(binaryDir: string) {
   const flagshipDir = 'flagship'
@@ -58,14 +59,8 @@ export async function CliDownloader(binaryDir: string) {
     } catch (err) {
       console.error(err)
     }
-
-    try {
-      file.on('finish', () => {
-        fs.createReadStream(cliTar).pipe(tar.extract(binaryDir))
-      })
-    } catch (err) {
-      setError(`Error: ${err}`, false)
-    }
+    await decompress(cliTar, binaryDir)
+    fs.chmodSync(`${binaryDir}/flagship`, '777')
   }
 
   async function download(): Promise<void> {
