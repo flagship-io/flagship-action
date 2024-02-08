@@ -28,9 +28,6 @@ jobs:
       - name: List Flagship
         run: ls flagship
 
-      - name: Check tar gz size
-        run: gzip -l 
-
       - name: List version
         run: ls flagship/0.7.3
 
