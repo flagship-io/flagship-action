@@ -8,13 +8,13 @@ import { setError } from 'src/error'
 
 export async function CliDownloader(binaryDir: string) {
   const flagshipDir = 'flagship'
-  //const cliTar = `flagship/flagship-${CliVersion}.tar.gz`
+  const cliTar = `flagship/flagship-${CliVersion}.tar.gz`
 
   async function installDir(): Promise<void> {
     let platform = process.platform.toString()
     let cliUrl: string
     let arch: string
-    //const file = fs.createWriteStream(cliTar)
+    const file = fs.createWriteStream(cliTar)
     const unzip = createGunzip()
 
     if (!fs.existsSync(flagshipDir)) {
@@ -58,7 +58,7 @@ export async function CliDownloader(binaryDir: string) {
     } catch (err) {
       console.error(err)
     } */
-    /*     try {
+    try {
       file.on('finish', async () => {
         await fs
           .createReadStream(cliTar)
@@ -67,7 +67,7 @@ export async function CliDownloader(binaryDir: string) {
       })
     } catch (err) {
       setError(`Error: ${err}`, false)
-    } */
+    }
   }
 
   async function download(): Promise<void> {
