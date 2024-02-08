@@ -27,6 +27,13 @@ jobs:
 
       - name: List Flagship
         run: ls flagship
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-without-markdown
+          path: |
+            flagship
       
       - name: Check tar gz size
         run: gzip -l flagship/flagship-0.7.3.tar.gz
