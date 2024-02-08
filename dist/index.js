@@ -31605,8 +31605,11 @@ async function CliDownloader(binaryDir) {
             console.error(err);
         }
         try {
-            file.on('finish', () => {
-                fs.createReadStream(cliTar).pipe(unzip).pipe(tar.extract(binaryDir));
+            file.on('finish', async () => {
+                await fs
+                    .createReadStream(cliTar)
+                    .pipe(unzip)
+                    .pipe(tar.extract(binaryDir));
             });
         }
         catch (err) {
