@@ -45,7 +45,7 @@ export async function CliDownloader(binaryDir: string) {
       cliUrl = `https://github.com/flagship-io/flagship/releases/download/v${CliVersion}/flagship_${CliVersion}_${platform}_${arch}.tar.gz`
     }
 
-    try {
+    /*     try {
       const archivedCLI = await axios.get(cliUrl, {
         responseType: 'arraybuffer',
         method: 'GET',
@@ -57,7 +57,7 @@ export async function CliDownloader(binaryDir: string) {
       file.end()
     } catch (err) {
       console.error(err)
-    }
+    } */
     try {
       file.on('finish', async () => {
         await fs
