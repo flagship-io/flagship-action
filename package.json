@@ -71,7 +71,7 @@
     "axios": "^1.6.7",
     "decompress": "^4.2.1",
     "rimraf": "^5.0.5",
-    "tar-fs": "^3.0.4"
+    "tar-fs": "^3.0.5"
   },
   "devDependencies": {
     "@types/decompress": "^4.2.7",
