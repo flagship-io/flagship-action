@@ -39718,7 +39718,7 @@ class Cli {
             if (!cliBin) {
                 return '';
             }
-            const command = `${cliBin} ${core.getInput('resource')} ${core.getInput('method')} ${flags}`;
+            const command = `${cliBin} ${core.getInput('resource')} ${core.getInput('method')} ${flags?.replaceAll(',', ' ')}`;
             const output = await this.exec(command, {});
             if (output.stderr) {
                 return '';
@@ -39940,9 +39940,8 @@ async function run() {
             await (0, cliDownloader_1.CliDownloader)(binaryDir);
         }
         const cli = new cliCommand_1.Cli();
-        //const version = await cli.Version()
-        //const result = await cli.Resource(core.getInput("flags"))
-        core.setOutput('result', core.getInput('flags'));
+        const result = await cli.Resource(core.getInput('flags'));
+        core.setOutput('result', result);
     }
     catch (err) { }
 }
