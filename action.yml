@@ -18,7 +18,7 @@ inputs:
 
 # Define your outputs here.
 outputs:
-  result:
+  RESULT:
     description: 'result of the cli'
 
 runs:
