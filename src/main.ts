@@ -14,7 +14,7 @@ export async function run(): Promise<void> {
   try {
     const flagshipDir = 'flagship'
     const binaryDir = `${flagshipDir}/${CliVersion}`
-    const internalFlagshipDir = '.flagship'
+    const internalFlagshipDir = '/home/runner/.flagship'
     const internalConfigutations = `${internalFlagshipDir}/configurations`
 
     if (!fs.existsSync(internalFlagshipDir)) {

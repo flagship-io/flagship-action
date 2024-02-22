@@ -39936,7 +39936,7 @@ async function run() {
     try {
         const flagshipDir = 'flagship';
         const binaryDir = `${flagshipDir}/${cliCommand_1.CliVersion}`;
-        const internalFlagshipDir = '.flagship';
+        const internalFlagshipDir = '/home/runner/.flagship';
         const internalConfigutations = `${internalFlagshipDir}/configurations`;
         if (!fs.existsSync(internalFlagshipDir)) {
             fs.mkdirSync(internalFlagshipDir);
