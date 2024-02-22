@@ -62,6 +62,12 @@ jobs:
       - name: Run flagship version
         run: flagship/1.0/flagship version
 
+      - name: mkdir
+        run: mkdir /home/runner/.flagship
+
+      - name: mkdir
+        run: mkdir /home/runner/.flagship/configurations
+
       - name: Run flagship configuration
         working-directory: /home/runner/work/flagship-action/flagship-action
         run:
