@@ -39,6 +39,9 @@ jobs:
       - name: List ls runner
         run: ls /home/runner
 
+      - name: List ls runner
+        run: pwd
+
       - name: List Flagship
         run: ls flagship
 
