@@ -1,5 +1,5 @@
 build:
-	ncc build src/index.ts --license LICENSE
+	npm run package
 
 push:
 	git add .

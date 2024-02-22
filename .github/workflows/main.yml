@@ -29,14 +29,10 @@ jobs:
         run: ls flagship
 
       - name: List version
-        run: ls flagship/0.7.3
+        run: ls flagship/1.0
 
       - name: Run flagship version
-        run: flagship/0.7.3/flagship version
+        run: flagship/1.0/flagship version
 
       - name: Run flagship configuration
-        run: flagship/0.7.3/flagship configuration list
-
-      # Use the output from the `hello` step
-      - name: Get the output time
-        run: echo "The time was ${{ steps.hello1.outputs.result }}"
+        run: flagship/1.0/flagship configuration list
