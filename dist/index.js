@@ -39723,7 +39723,7 @@ class Cli {
             if (output.stderr) {
                 return '';
             }
-            return output.stdout;
+            return JSON.stringify(output.stdout);
         }
         catch (err) {
             return err.toString();
@@ -39945,9 +39945,9 @@ async function run() {
           core.getInput('method'),
           core.getInput('flags')
         ) */
-        const result = await cli.Resource('configuration', 'create', '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction');
-        console.log(result);
-        core.setOutput('result', result);
+        const commandResponse = await cli.Resource('configuration', 'create', '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction');
+        console.log(commandResponse);
+        core.setOutput('COMMAND_RESPONSE', commandResponse);
     }
     catch (err) { }
 }

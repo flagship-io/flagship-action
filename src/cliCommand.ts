@@ -65,7 +65,7 @@ export class Cli {
       if (output.stderr) {
         return ''
       }
-      return output.stdout
+      return JSON.stringify(output.stdout)
     } catch (err: any) {
       return err.toString()
     }

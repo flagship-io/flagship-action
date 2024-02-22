@@ -21,14 +21,14 @@ jobs:
 
       - name: Get the output time
         continue-on-error: true
-        run: echo "hello ${{ toJson(steps.hello.outputs.result)}}"
+        run: echo "hello ${{ toJson(steps.hello.outputs.COMMAND_RESPONSE)}}"
 
       - name: Set Variable Output
         continue-on-error: true
         id: newVar
         run:
           echo "::set-output name=variable_value::${{
-          toJson(steps.hello.outputs.result) }}"
+          toJson(steps.hello.outputs.COMMAND_RESPONSE) }}"
 
       - name: Display Variable Value
         run: echo "The variable is ${{ steps.newVar.outputs.variable_value }}"
