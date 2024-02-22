@@ -39681,7 +39681,7 @@ const child_process_1 = __nccwpck_require__(2081);
 const path_1 = __nccwpck_require__(1017);
 const fs = __importStar(__nccwpck_require__(7147));
 const error_1 = __nccwpck_require__(6388);
-exports.CliVersion = '0.7.3'; // 'v' in v0.7.3 is added in download url
+exports.CliVersion = '1.0'; // 'v' in v0.7.3 is added in download url
 exports.actionVersion = '0.0.1';
 class Cli {
     exec(command, options) {
@@ -39712,13 +39712,13 @@ class Cli {
             return err.error;
         }
     }
-    async Resource() {
+    async Resource(flags) {
         try {
             const cliBin = await this.CliBin();
             if (!cliBin) {
                 return '';
             }
-            const command = `${cliBin} ${core.getInput('resource')} ${core.getInput('method')}`;
+            const command = `${cliBin} ${core.getInput('resource')} ${core.getInput('method')} ${flags}`;
             const output = await this.exec(command, {});
             if (output.stderr) {
                 return '';
@@ -39940,8 +39940,9 @@ async function run() {
             await (0, cliDownloader_1.CliDownloader)(binaryDir);
         }
         const cli = new cliCommand_1.Cli();
-        const version = await cli.Version();
-        core.setOutput('result', version);
+        //const version = await cli.Version()
+        //const result = await cli.Resource(core.getInput("flags"))
+        core.setOutput('result', core.getInput('flags'));
     }
     catch (err) { }
 }
