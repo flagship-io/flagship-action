@@ -20,7 +20,8 @@ export async function run(): Promise<void> {
     }
 
     const cli = new Cli()
-    const version = await cli.Version()
-    core.setOutput('result', version)
+    //const version = await cli.Version()
+    //const result = await cli.Resource(core.getInput("flags"))
+    core.setOutput('result', core.getInput('flags'))
   } catch (err) {}
 }

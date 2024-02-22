@@ -9,7 +9,7 @@ jobs:
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Hello world action step
         continue-on-error: true
         uses: ./ # Uses an action in the root directory
@@ -17,8 +17,8 @@ jobs:
         with:
           resource: 'configuration'
           method: 'create'
-          flags: "-i,ciAction,-s,csAction,-a,aAction,-e,eAction"
-      
+          flags: '-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
+
       - name: Get the output time
         run: echo "The time was ${{ steps.hello.outputs.result }}"
 
@@ -33,6 +33,9 @@ jobs:
 
       - name: Run flagship version
         run: flagship/0.7.3/flagship version
+
+      - name: Run flagship configuration
+        run: flagship/0.7.3/flagship configuration list
 
       # Use the output from the `hello` step
       - name: Get the output time
