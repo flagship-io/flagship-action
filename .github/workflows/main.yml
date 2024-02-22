@@ -20,7 +20,18 @@ jobs:
           flags: '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
 
       - name: Get the output time
+        continue-on-error: true
         run: echo "hello ${{ toJson(steps.hello.outputs.result)}}"
+
+      - name: Set Variable Output
+        continue-on-error: true
+        id: newVar
+        run:
+          echo "::set-output name=variable_value::${{
+          toJson(steps.hello.outputs.result) }}"
+
+      - name: Display Variable Value
+        run: echo "The variable is ${{ steps.newVar.outputs.variable_value }}"
 
       - name: List ls
         run: ls
