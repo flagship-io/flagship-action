@@ -59,8 +59,7 @@ export class Cli {
       if (!cliBin) {
         return ''
       }
-      const command = `${cliBin} ${resource} ${method} ${flags?.replaceAll(',', ' ')}`
-      console.log(command)
+      const command = `${cliBin} ${resource} ${method} ${flags?.replaceAll(',', ' ')} --output-format json`
       const output = await this.exec(command, {})
       if (output.stderr) {
         return ''

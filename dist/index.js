@@ -39717,8 +39717,7 @@ class Cli {
             if (!cliBin) {
                 return '';
             }
-            const command = `${cliBin} ${resource} ${method} ${flags?.replaceAll(',', ' ')}`;
-            console.log(command);
+            const command = `${cliBin} ${resource} ${method} ${flags?.replaceAll(',', ' ')} --output-format json`;
             const output = await this.exec(command, {});
             if (output.stderr) {
                 return '';
@@ -39951,12 +39950,6 @@ async function run() {
         }
         const cli = new cliCommand_1.Cli();
         const commandResponse = await cli.Resource(core.getInput('resource'), core.getInput('method'), core.getInput('flags'));
-        /*     const commandResponse = await cli.Resource(
-          'configuration',
-          'create',
-          '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
-        ) */
-        console.log(commandResponse);
         core.setOutput('COMMAND_RESPONSE', commandResponse);
     }
     catch (err) { }

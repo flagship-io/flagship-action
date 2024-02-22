@@ -3,76 +3,41 @@ on: [push]
 jobs:
   hello_world_job:
     runs-on: ubuntu-latest
-    name: A job to say hello
+    name: A job Test Flagship CLI in CI
     steps:
       # To use this repository's private action,
       # you must check out the repository
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Hello world action step
-        continue-on-error: true
-        uses: ./ # Uses an action in the root directory
-        id: hello
-        with:
-          resource: 'configuration'
-          method: 'create'
-          flags: '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
-
-      - name: Get the output time
-        continue-on-error: true
-        run: echo "${{ steps.hello.outputs.COMMAND_RESPONSE}}"
-
-      - name: Set Variable Output
-        continue-on-error: true
-        id: newVar
-        run:
-          echo "::set-output name=variable_value::${{
-          toJson(steps.hello.outputs.COMMAND_RESPONSE) }}"
-
-      - name: Display Variable Value
-        run: echo "The variable is ${{ steps.newVar.outputs.variable_value }}"
-
-      - name: List ls
-        run: ls -all
-
-      - name: List ls runner
-        run: ls /home/runner
-
-      - name: List ls runner
-        run: pwd
-
-      - name: List Flagship
-        run: ls flagship
-
-      - name: List Flagship internal
-        run: ls .flagship
-
-      - name: Hello world action step 1
-        continue-on-error: true
+      - name: Check CLI version
         uses: ./ # Uses an action in the root directory
         id: version
         with:
           resource: version
 
-      - name: Set Variable Output
-        continue-on-error: true
+      - name: Get previous version step response
         run: echo "${{steps.version.outputs.COMMAND_RESPONSE}}"
 
-      - name: Run flagship version
-        run: flagship/1.0/flagship version
+      - name: Configuration
+        uses: ./ # Uses an action in the root directory
+        id: config
+        with:
+          resource: 'configuration'
+          method: 'create'
+          flags: '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
 
-      - name: mkdir
-        run: mkdir /home/runner/.flagship
+      - name: Get previous configurationstep response
+        continue-on-error: true
+        run: echo "${{ steps.config.outputs.COMMAND_RESPONSE}}"
 
-      - name: mkdir
-        run: mkdir /home/runner/.flagship/configurations
+      - name: List Configurations
+        uses: ./ # Uses an action in the root directory
+        id: list-config
+        with:
+          resource: 'configuration'
+          method: 'list'
 
-      - name: Run flagship configuration
-        working-directory: /home/runner/work/flagship-action/flagship-action
-        run:
-          flagship/1.0/flagship configuration create -n config-name-1 -i
-          ciAction -s csAction -a aAction -e eAction
-
-      - name: Run flagship configuration
-        run: flagship/1.0/flagship configuration list
+      - name: Get previous configurationstep response
+        continue-on-error: true
+        run: echo "${{ steps.list-config.outputs.COMMAND_RESPONSE}}"

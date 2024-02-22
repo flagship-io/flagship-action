@@ -40,12 +40,6 @@ export async function run(): Promise<void> {
       core.getInput('flags')
     )
 
-    /*     const commandResponse = await cli.Resource(
-      'configuration',
-      'create',
-      '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
-    ) */
-    console.log(commandResponse)
     core.setOutput('COMMAND_RESPONSE', commandResponse)
   } catch (err) {}
 }
