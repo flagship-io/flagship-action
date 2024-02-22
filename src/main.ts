@@ -14,6 +14,20 @@ export async function run(): Promise<void> {
   try {
     const flagshipDir = 'flagship'
     const binaryDir = `${flagshipDir}/${CliVersion}`
+    const internalFlagshipDir = '.flagship'
+    const internalConfigutations = `${internalFlagshipDir}/configurations`
+
+    if (!fs.existsSync(internalFlagshipDir)) {
+      fs.mkdirSync(internalFlagshipDir)
+    }
+
+    fs.chmodSync(`${internalFlagshipDir}`, '777')
+
+    if (!fs.existsSync(internalConfigutations)) {
+      fs.mkdirSync(internalConfigutations)
+    }
+
+    fs.chmodSync(`${internalConfigutations}`, '777')
 
     if (!fs.existsSync(binaryDir)) {
       await CliDownloader(binaryDir)

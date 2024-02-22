@@ -34,7 +34,7 @@ jobs:
         run: echo "The variable is ${{ steps.newVar.outputs.variable_value }}"
 
       - name: List ls
-        run: ls
+        run: ls -all
 
       - name: List Flagship
         run: ls flagship

@@ -39793,7 +39793,6 @@ const cliCommand_1 = __nccwpck_require__(8344);
 const decompress_1 = __importDefault(__nccwpck_require__(9350));
 async function CliDownloader(binaryDir) {
     const flagshipDir = 'flagship';
-    const internalFlagshipDir = '.flagship/configurations';
     const cliTar = `flagship/flagship-${cliCommand_1.CliVersion}.tar.gz`;
     async function installDir() {
         let platform = process.platform.toString();
@@ -39806,9 +39805,6 @@ async function CliDownloader(binaryDir) {
         }
         if (!fs.existsSync(binaryDir)) {
             fs.mkdirSync(binaryDir);
-        }
-        if (!fs.existsSync(internalFlagshipDir)) {
-            fs.mkdirSync(internalFlagshipDir);
         }
         if (platform === 'win32') {
             platform = 'windows';
@@ -39845,7 +39841,6 @@ async function CliDownloader(binaryDir) {
         }
         await (0, decompress_1.default)(cliTar, binaryDir);
         fs.chmodSync(`${binaryDir}/flagship`, '777');
-        fs.chmodSync(`${internalFlagshipDir}`, '777');
     }
     async function download() {
         await installDir();
@@ -39941,6 +39936,16 @@ async function run() {
     try {
         const flagshipDir = 'flagship';
         const binaryDir = `${flagshipDir}/${cliCommand_1.CliVersion}`;
+        const internalFlagshipDir = '.flagship';
+        const internalConfigutations = `${internalFlagshipDir}/configurations`;
+        if (!fs.existsSync(internalFlagshipDir)) {
+            fs.mkdirSync(internalFlagshipDir);
+        }
+        fs.chmodSync(`${internalFlagshipDir}`, '777');
+        if (!fs.existsSync(internalConfigutations)) {
+            fs.mkdirSync(internalConfigutations);
+        }
+        fs.chmodSync(`${internalConfigutations}`, '777');
         if (!fs.existsSync(binaryDir)) {
             await (0, cliDownloader_1.CliDownloader)(binaryDir);
         }

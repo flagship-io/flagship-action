@@ -9,7 +9,6 @@ import decompress from 'decompress'
 
 export async function CliDownloader(binaryDir: string) {
   const flagshipDir = 'flagship'
-  const internalFlagshipDir = '.flagship/configurations'
   const cliTar = `flagship/flagship-${CliVersion}.tar.gz`
 
   async function installDir(): Promise<void> {
@@ -24,10 +23,6 @@ export async function CliDownloader(binaryDir: string) {
     }
     if (!fs.existsSync(binaryDir)) {
       fs.mkdirSync(binaryDir)
-    }
-
-    if (!fs.existsSync(internalFlagshipDir)) {
-      fs.mkdirSync(internalFlagshipDir)
     }
 
     if (platform === 'win32') {
@@ -66,7 +61,6 @@ export async function CliDownloader(binaryDir: string) {
     }
     await decompress(cliTar, binaryDir)
     fs.chmodSync(`${binaryDir}/flagship`, '777')
-    fs.chmodSync(`${internalFlagshipDir}`, '777')
   }
 
   async function download(): Promise<void> {
