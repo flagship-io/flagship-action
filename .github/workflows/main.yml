@@ -36,6 +36,9 @@ jobs:
       - name: List ls
         run: ls -all
 
+      - name: List ls runner
+        run: ls /home/runner
+
       - name: List Flagship
         run: ls flagship
 
@@ -57,6 +60,7 @@ jobs:
         run: flagship/1.0/flagship version
 
       - name: Run flagship configuration
+        working-directory: C:\inetpub\app
         run:
           flagship/1.0/flagship configuration create -n config-name-1 -i
           ciAction -s csAction -a aAction -e eAction
