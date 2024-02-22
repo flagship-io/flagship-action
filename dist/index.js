@@ -39676,7 +39676,6 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Cli = exports.actionVersion = exports.CliVersion = void 0;
-const core = __importStar(__nccwpck_require__(2186));
 const child_process_1 = __nccwpck_require__(2081);
 const path_1 = __nccwpck_require__(1017);
 const fs = __importStar(__nccwpck_require__(7147));
@@ -39712,13 +39711,14 @@ class Cli {
             return err.error;
         }
     }
-    async Resource(flags) {
+    async Resource(resource, method, flags) {
         try {
             const cliBin = await this.CliBin();
             if (!cliBin) {
                 return '';
             }
-            const command = `${cliBin} ${core.getInput('resource')} ${core.getInput('method')} ${flags?.replaceAll(',', ' ')}`;
+            const command = `${cliBin} ${resource} ${method} ${flags?.replaceAll(',', ' ')}`;
+            console.log(command);
             const output = await this.exec(command, {});
             if (output.stderr) {
                 return '';
@@ -39940,8 +39940,8 @@ async function run() {
             await (0, cliDownloader_1.CliDownloader)(binaryDir);
         }
         const cli = new cliCommand_1.Cli();
-        const result = await cli.Resource(core.getInput('flags'));
-        core.setOutput('result', result);
+        const result = await cli.Resource('configuration', 'create', '-n,name,-i,ci,-s,cs,-a,ae,-e,ei');
+        core.setOutput('RESULT', result);
     }
     catch (err) { }
 }

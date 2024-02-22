@@ -49,13 +49,18 @@ export class Cli {
     }
   }
 
-  async Resource(flags?: string): Promise<string> {
+  async Resource(
+    resource: string,
+    method: string,
+    flags?: string
+  ): Promise<string> {
     try {
       const cliBin = await this.CliBin()
       if (!cliBin) {
         return ''
       }
-      const command = `${cliBin} ${core.getInput('resource')} ${core.getInput('method')} ${flags?.replaceAll(',', ' ')}`
+      const command = `${cliBin} ${resource} ${method} ${flags?.replaceAll(',', ' ')}`
+      console.log(command)
       const output = await this.exec(command, {})
       if (output.stderr) {
         return ''

@@ -20,7 +20,11 @@ export async function run(): Promise<void> {
     }
 
     const cli = new Cli()
-    const result = await cli.Resource(core.getInput('flags'))
-    core.setOutput('result', result)
+    const result = await cli.Resource(
+      'configuration',
+      'create',
+      '-n,name,-i,ci,-s,cs,-a,ae,-e,ei'
+    )
+    core.setOutput('RESULT', result)
   } catch (err) {}
 }
