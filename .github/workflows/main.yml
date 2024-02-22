@@ -17,7 +17,7 @@ jobs:
         with:
           resource: 'configuration'
           method: 'create'
-          flags: '-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
+          flags: '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
 
       - name: Get the output time
         run: echo "The time was ${{ toJson(steps.hello.outputs.result) }}"
