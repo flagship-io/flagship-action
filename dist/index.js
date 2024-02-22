@@ -39793,7 +39793,7 @@ const cliCommand_1 = __nccwpck_require__(8344);
 const decompress_1 = __importDefault(__nccwpck_require__(9350));
 async function CliDownloader(binaryDir) {
     const flagshipDir = 'flagship';
-    const internalFlagshipDir = '.flagship';
+    const internalFlagshipDir = '.flagship/configurations';
     const cliTar = `flagship/flagship-${cliCommand_1.CliVersion}.tar.gz`;
     async function installDir() {
         let platform = process.platform.toString();

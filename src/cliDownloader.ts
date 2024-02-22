@@ -9,7 +9,7 @@ import decompress from 'decompress'
 
 export async function CliDownloader(binaryDir: string) {
   const flagshipDir = 'flagship'
-  const internalFlagshipDir = '.flagship'
+  const internalFlagshipDir = '.flagship/configurations'
   const cliTar = `flagship/flagship-${CliVersion}.tar.gz`
 
   async function installDir(): Promise<void> {
