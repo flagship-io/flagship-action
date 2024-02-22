@@ -51,7 +51,7 @@ export class Cli {
 
   async Resource(
     resource: string,
-    method: string,
+    method?: string,
     flags?: string
   ): Promise<string> {
     try {
