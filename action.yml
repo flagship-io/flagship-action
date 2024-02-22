@@ -10,7 +10,7 @@ inputs:
   
   method:
     description: 'method for the resource'
-    required: true
+    required: false
   
   flags:
     description: 'flags for the method'

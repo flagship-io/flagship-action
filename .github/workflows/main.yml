@@ -42,6 +42,17 @@ jobs:
       - name: List Flagship internal
         run: ls .flagship
 
+      - name: Hello world action step 1
+        continue-on-error: true
+        uses: ./ # Uses an action in the root directory
+        id: version
+        with:
+          resource: version
+
+      - name: Set Variable Output
+        continue-on-error: true
+        run: echo "${{steps.version.outputs.COMMAND_RESPONSE}}"
+
       - name: Run flagship version
         run: flagship/1.0/flagship version
 
