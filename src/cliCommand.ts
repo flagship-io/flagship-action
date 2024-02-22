@@ -6,7 +6,7 @@ import { homedir } from 'os'
 import * as fs from 'fs'
 import { setError } from './error'
 
-export const CliVersion = '0.7.3' // 'v' in v0.7.3 is added in download url
+export const CliVersion = '1.0' // 'v' in v0.7.3 is added in download url
 export const actionVersion = '0.0.1'
 
 export class Cli {
