@@ -21,10 +21,11 @@ export async function run(): Promise<void> {
 
     const cli = new Cli()
     const result = await cli.Resource(
-      'configuration',
-      'create',
-      '-n,name,-i,ci,-s,cs,-a,ae,-e,ei'
+      core.getInput('configuration'),
+      core.getInput('method'),
+      core.getInput('flags')
     )
+    console.log(result)
     core.setOutput('RESULT', result)
   } catch (err) {}
 }

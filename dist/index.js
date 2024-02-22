@@ -39940,7 +39940,8 @@ async function run() {
             await (0, cliDownloader_1.CliDownloader)(binaryDir);
         }
         const cli = new cliCommand_1.Cli();
-        const result = await cli.Resource('configuration', 'create', '-n,name,-i,ci,-s,cs,-a,ae,-e,ei');
+        const result = await cli.Resource(core.getInput('configuration'), core.getInput('method'), core.getInput('flags'));
+        console.log(result);
         core.setOutput('RESULT', result);
     }
     catch (err) { }
