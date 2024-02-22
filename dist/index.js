@@ -39942,7 +39942,7 @@ async function run() {
         const cli = new cliCommand_1.Cli();
         const result = await cli.Resource(core.getInput('configuration'), core.getInput('method'), core.getInput('flags'));
         console.log(result);
-        core.setOutput('RESULT', result);
+        core.setOutput('result', result);
     }
     catch (err) { }
 }

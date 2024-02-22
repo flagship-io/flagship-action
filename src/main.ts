@@ -26,6 +26,6 @@ export async function run(): Promise<void> {
       core.getInput('flags')
     )
     console.log(result)
-    core.setOutput('RESULT', result)
+    core.setOutput('result', result)
   } catch (err) {}
 }
