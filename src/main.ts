@@ -21,6 +21,6 @@ export async function run(): Promise<void> {
 
     const cli = new Cli()
     const result = await cli.Resource(core.getInput('flags'))
-    core.setOutput('result', JSON.stringify(result))
+    core.setOutput('result', result)
   } catch (err) {}
 }
