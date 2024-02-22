@@ -20,7 +20,7 @@ jobs:
           flags: '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
 
       - name: Get the output time
-        run: echo "hello ${{ fromJson(steps.hello.outputs.result)}}"
+        run: echo "hello ${{ steps.hello.outputs.result}}"
 
       - name: List ls
         run: ls
