@@ -63,7 +63,7 @@ jobs:
         run: flagship/1.0/flagship version
 
       - name: Run flagship configuration
-        working-directory: C:\inetpub\app
+        working-directory: /home/runner/work/flagship-action/flagship-action
         run:
           flagship/1.0/flagship configuration create -n config-name-1 -i
           ciAction -s csAction -a aAction -e eAction
