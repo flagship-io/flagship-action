@@ -21,7 +21,7 @@ jobs:
 
       - name: Get the output time
         continue-on-error: true
-        run: echo "hello ${{ toJson(steps.hello.outputs.COMMAND_RESPONSE)}}"
+        run: echo "${{ steps.hello.outputs.COMMAND_RESPONSE}}"
 
       - name: Set Variable Output
         continue-on-error: true
@@ -55,6 +55,11 @@ jobs:
 
       - name: Run flagship version
         run: flagship/1.0/flagship version
+
+      - name: Run flagship configuration
+        run:
+          flagship/1.0/flagship configuration create -n config-name-1 -i
+          ciAction -s csAction -a aAction -e eAction
 
       - name: Run flagship configuration
         run: flagship/1.0/flagship configuration list
