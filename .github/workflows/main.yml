@@ -1,7 +1,7 @@
 on: [push]
 
 jobs:
-  hello_world_job:
+  test_flagship_cli:
     runs-on: ubuntu-latest
     name: A job Test Flagship CLI in CI
     steps:
