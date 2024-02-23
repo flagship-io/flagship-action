@@ -1,5 +1,5 @@
-name: 'Flagship'
-description: 'Flagship CLI in github action'
+name: 'flagship-action'
+description: 'Flagship CLI in GitHub action'
 author: 'Chadi LAOULAOU <chadiii> | AB Tasty'
 
 # Define your inputs here.
@@ -19,7 +19,7 @@ inputs:
 # Define your outputs here.
 outputs:
   COMMAND_RESPONSE:
-    description: 'result of the cli'
+    description: 'result of the CLI'
 
 runs:
   using: node20
