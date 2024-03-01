@@ -76,7 +76,7 @@
   "devDependencies": {
     "@types/decompress": "^4.2.7",
     "@types/jest": "^29.5.12",
-    "@types/node": "^20.11.16",
+    "@types/node": "^20.11.24",
     "@types/tar-fs": "^2.0.4",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
