@@ -39680,7 +39680,7 @@ const child_process_1 = __nccwpck_require__(2081);
 const path_1 = __nccwpck_require__(1017);
 const fs = __importStar(__nccwpck_require__(7147));
 const error_1 = __nccwpck_require__(6388);
-exports.CliVersion = '1.0'; // 'v' in v0.7.3 is added in download url
+exports.CliVersion = '1.0.2';
 exports.actionVersion = '0.0.1';
 class Cli {
     exec(command, options) {
@@ -39726,24 +39726,6 @@ class Cli {
         }
         catch (err) {
             return err.toString();
-        }
-    }
-    async Version() {
-        try {
-            const cliBin = await this.CliBin();
-            if (!cliBin) {
-                (0, error_1.setError)(`Error: binary not found`, false);
-            }
-            const command = `${cliBin} version`;
-            const output = await this.exec(command, {});
-            if (output.stderr) {
-                (0, error_1.setError)(`Error: ${output.stderr}`, false);
-            }
-            return output.stdout;
-        }
-        catch (err) {
-            (0, error_1.setError)(`Error: ${err}`, false);
-            return '';
         }
     }
 }
@@ -39927,10 +39909,24 @@ const core = __importStar(__nccwpck_require__(2186));
 const fs = __importStar(__nccwpck_require__(7147));
 const cliCommand_1 = __nccwpck_require__(8344);
 const cliDownloader_1 = __nccwpck_require__(2698);
-/**
- * The main function for the action.
- * @returns {Promise<void>} Resolves when the action is complete.
- */
+const commandResponses = [];
+var commandRequests = {};
+var cliRequests = [];
+const buildInputs = () => {
+    const createConfiguration = core.getInput('create-configuration');
+    if (createConfiguration) {
+        commandRequests = { ...commandRequests, createConfiguration };
+    }
+};
+const buildCommands = (commandRequests) => {
+    for (const [key, value] of Object.entries(commandRequests)) {
+        cliRequests.push({
+            method: key[0],
+            resource: key[1].toLowerCase(),
+            flags: value
+        });
+    }
+};
 async function run() {
     try {
         const flagshipDir = 'flagship';
@@ -39949,8 +39945,18 @@ async function run() {
             await (0, cliDownloader_1.CliDownloader)(binaryDir);
         }
         const cli = new cliCommand_1.Cli();
-        const commandResponse = await cli.Resource(core.getInput('resource'), core.getInput('method'), core.getInput('flags'));
-        core.setOutput('COMMAND_RESPONSE', commandResponse);
+        /*     if (core.getInput('create-configuration')) {
+          const commandResponse = await cli.Resource(
+            core.getInput('resource'),
+            core.getInput('method'),
+            core.getInput('flags')
+          )
+          core.setOutput('COMMAND_RESPONSE', commandResponse)
+        } */
+        buildInputs();
+        buildCommands(commandResponses);
+        console.log('Hi');
+        console.log(cliRequests);
     }
     catch (err) { }
 }

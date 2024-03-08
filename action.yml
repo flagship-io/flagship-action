@@ -16,6 +16,9 @@ inputs:
     description: 'flags for the method'
     required: false
 
+  create-configuration:
+    description: 'create configuraiton'
+    required: false
 # Define your outputs here.
 outputs:
   COMMAND_RESPONSE:

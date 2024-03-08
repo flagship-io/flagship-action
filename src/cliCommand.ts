@@ -6,7 +6,7 @@ import { homedir } from 'os'
 import * as fs from 'fs'
 import { setError } from './error'
 
-export const CliVersion = '1.0' // 'v' in v0.7.3 is added in download url
+export const CliVersion = '1.0.2'
 export const actionVersion = '0.0.1'
 
 export class Cli {
@@ -67,24 +67,6 @@ export class Cli {
       return JSON.stringify(output.stdout)
     } catch (err: any) {
       return err.toString()
-    }
-  }
-
-  async Version(): Promise<string> {
-    try {
-      const cliBin = await this.CliBin()
-      if (!cliBin) {
-        setError(`Error: binary not found`, false)
-      }
-      const command = `${cliBin} version`
-      const output = await this.exec(command, {})
-      if (output.stderr) {
-        setError(`Error: ${output.stderr}`, false)
-      }
-      return output.stdout
-    } catch (err: any) {
-      setError(`Error: ${err}`, false)
-      return ''
     }
   }
 }
