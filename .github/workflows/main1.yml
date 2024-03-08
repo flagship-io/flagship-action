@@ -15,3 +15,7 @@ jobs:
         id: config
         with:
           create-configuration: '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
+
+      - name: Get previous configuration step response
+        continue-on-error: true
+        run: echo "${{ steps.config.outputs.COMMAND_RESPONSE}}"

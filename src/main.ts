@@ -78,5 +78,6 @@ export async function run(): Promise<void> {
 
     console.log('Hi')
     console.log(cliRequests)
+    core.setOutput('COMMAND_RESPONSE', cliRequests)
   } catch (err) {}
 }

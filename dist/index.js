@@ -39957,6 +39957,7 @@ async function run() {
         buildCommands(commandResponses);
         console.log('Hi');
         console.log(cliRequests);
+        core.setOutput('COMMAND_RESPONSE', cliRequests);
     }
     catch (err) { }
 }
