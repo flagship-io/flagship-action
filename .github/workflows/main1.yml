@@ -1,4 +1,4 @@
-on: [fork]
+on: [push]
 
 jobs:
   test_flagship_cli:
