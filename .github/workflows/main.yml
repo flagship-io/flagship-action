@@ -1,4 +1,4 @@
-on: [workflow_dispatch]
+on: [push]
 
 jobs:
   test_flagship_cli:
@@ -10,34 +10,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Check CLI version
-        uses: ./ # Uses an action in the root directory
-        id: version
-        with:
-          resource: version
-
-      - name: Get previous version step response
-        run: echo "${{steps.version.outputs.COMMAND_RESPONSE}}"
-
       - name: Configuration
         uses: ./ # Uses an action in the root directory
         id: config
         with:
-          resource: 'configuration'
-          method: 'create'
-          flags: '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
+          create-configuration: '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
 
-      - name: Get previous configurationstep response
+      - name: Configuration
+        uses: ./ # Uses an action in the root directory
+        id: config1
+        with:
+          create-configuration: |
+            name: configuration-name
+            client_id: ci
+            client_secret: cs
+            account_id: ai
+            account_environment_id: aei
+
+      - name: Get previous configuration step response
         continue-on-error: true
         run: echo "${{ steps.config.outputs.COMMAND_RESPONSE}}"
-
-      - name: List Configurations
-        uses: ./ # Uses an action in the root directory
-        id: list-config
-        with:
-          resource: 'configuration'
-          method: 'list'
-
-      - name: Get previous configurationstep response
-        continue-on-error: true
-        run: echo "${{ steps.list-config.outputs.COMMAND_RESPONSE}}"

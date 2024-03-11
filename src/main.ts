@@ -6,6 +6,7 @@ import * as path from 'path'
 import { homedir } from 'os'
 import { Cli, CliVersion } from './cliCommand'
 import { CliDownloader } from './cliDownloader'
+import { CREATE_CONFIGURATION } from './const'
 /**
  * The main function for the action.
  * @returns {Promise<void>} Resolves when the action is complete.
@@ -17,27 +18,34 @@ type CliRequest = {
   flags: string
 }
 
-const commandResponses: never[] = []
-var commandRequests = {}
-var cliRequests: CliRequest[] = []
-
 const buildInputs = () => {
-  const createConfiguration = core.getInput('create-configuration')
+  var commandRequests = {}
+  const createConfiguration = core.getMultilineInput(CREATE_CONFIGURATION)
+  console.log(createConfiguration)
   if (createConfiguration) {
-    commandRequests = { ...commandRequests, createConfiguration }
+    console.log('enter')
+    commandRequests = {
+      ...commandRequests,
+      [CREATE_CONFIGURATION]: createConfiguration
+    }
   }
+
+  return commandRequests
 }
 
 const buildCommands = (
   commandRequests: { [s: string]: unknown } | ArrayLike<unknown>
 ) => {
+  var cliRequests: CliRequest[] = []
   for (const [key, value] of Object.entries(commandRequests)) {
+    const splitted = key.split('-')
     cliRequests.push({
-      method: key[0],
-      resource: key[1].toLowerCase(),
+      method: splitted[0],
+      resource: splitted[1],
       flags: value
     } as CliRequest)
   }
+  return cliRequests
 }
 
 export async function run(): Promise<void> {
@@ -47,23 +55,11 @@ export async function run(): Promise<void> {
     const internalFlagshipDir = '/home/runner/.flagship'
     const internalConfigutations = `${internalFlagshipDir}/configurations`
 
-    if (!fs.existsSync(internalFlagshipDir)) {
-      fs.mkdirSync(internalFlagshipDir)
-    }
-
-    fs.chmodSync(`${internalFlagshipDir}`, '777')
-
-    if (!fs.existsSync(internalConfigutations)) {
-      fs.mkdirSync(internalConfigutations)
-    }
-
-    fs.chmodSync(`${internalConfigutations}`, '777')
-
     if (!fs.existsSync(binaryDir)) {
-      await CliDownloader(binaryDir)
+      //await CliDownloader(binaryDir)
     }
 
-    const cli = new Cli()
+    //const cli = new Cli()
 
     /*     if (core.getInput('create-configuration')) {
       const commandResponse = await cli.Resource(
@@ -73,11 +69,12 @@ export async function run(): Promise<void> {
       )
       core.setOutput('COMMAND_RESPONSE', commandResponse)
     } */
-    buildInputs()
-    buildCommands(commandResponses)
+    const commandRequests = buildInputs()
+    const cliRequests = buildCommands(commandRequests)
 
-    console.log('Hi')
     console.log(cliRequests)
     core.setOutput('COMMAND_RESPONSE', cliRequests)
-  } catch (err) {}
+  } catch (err) {
+    console.log('error')
+  }
 }
