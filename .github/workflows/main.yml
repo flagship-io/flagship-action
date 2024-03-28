@@ -30,3 +30,33 @@ jobs:
       - name: Get previous configuration step response
         continue-on-error: true
         run: echo "${{ steps.config.outputs.COMMAND_RESPONSE}}"
+
+      - name: List ls
+        run: ls -all
+
+      - name: List ls runner
+        run: ls /home/runner
+
+      - name: List Flagship
+        run: ls flagship
+
+      - name: List Flagship internal
+        run: ls .flagship
+
+      - name: Run flagship version
+        run: flagship/1.0/flagship version
+
+      - name: mkdir
+        run: mkdir /home/runner/.flagship
+
+      - name: mkdir
+        run: mkdir /home/runner/.flagship/configurations
+
+      - name: Run flagship configuration
+        working-directory: /home/runner/work/flagship-action/flagship-action
+        run:
+          flagship/1.0.2/flagship configuration create -n config-name-1 -i
+          ciAction -s csAction -a aAction -e eAction
+
+      - name: Run flagship configuration
+        run: flagship/1.0.2/flagship configuration list
