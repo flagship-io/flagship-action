@@ -4,20 +4,16 @@ author: 'Chadi LAOULAOU <chadiii> | AB Tasty'
 
 # Define your inputs here.
 inputs:
-  resource:
-    description: 'Flagship resource'
-    required: true
-  
-  method:
-    description: 'method for the resource'
-    required: false
-  
-  flags:
-    description: 'flags for the method'
-    required: false
-
   create-configuration:
     description: 'create configuraiton'
+    required: false
+
+  use-configuration:
+    description: 'use configuraiton'
+    required: false
+
+  list-flag:
+    description: 'list flag'
     required: false
 # Define your outputs here.
 outputs:
