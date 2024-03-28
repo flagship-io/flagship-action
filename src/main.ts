@@ -98,6 +98,8 @@ export async function run(): Promise<void> {
     const flagshipDir = 'flagship'
     const binaryDir = `${flagshipDir}/${CliVersion}`
     const internalFlagshipDir = '/home/runner/.flagship'
+    //const internalFlagshipDir = '.flagship'
+
     const internalConfigutations = `${internalFlagshipDir}/configurations`
     var cliResponse: string[] = []
 
@@ -114,28 +116,22 @@ export async function run(): Promise<void> {
     fs.chmodSync(`${internalConfigutations}`, '777')
 
     if (!fs.existsSync(binaryDir)) {
+      console.log('download')
       await CliDownloader(binaryDir)
     }
 
     const cli = new Cli()
 
-    /*     if (core.getInput('create-configuration')) {
-      const commandResponse = await cli.Resource(
-        core.getInput('resource'),
-        core.getInput('method'),
-        core.getInput('flags')
-      )
-      core.setOutput('COMMAND_RESPONSE', commandResponse)
-    } */
     const commandRequests = buildInputs()
     const cliRequests = buildCommands(commandRequests)
 
     cliRequests.map(async r => {
       const resp = await cli.Resource(r.resource, r.method, r.flags)
+      console.log(resp)
       cliResponse.push(resp)
     })
     core.setOutput('COMMAND_RESPONSE', cliResponse)
   } catch (err) {
-    //console.log('error')
+    console.log(err)
   }
 }

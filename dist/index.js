@@ -39720,9 +39720,10 @@ class Cli {
             const command = method === 'list'
                 ? `${cliBin} ${resource} ${method} ${args}`
                 : `${cliBin} ${resource} ${method} ${args} --output-format json`;
+            console.log(command);
             const output = await this.exec(command, {});
             if (output.stderr) {
-                return '';
+                return `error occured with command ${command}`;
             }
             return JSON.stringify(output.stdout);
         }
@@ -39992,6 +39993,7 @@ async function run() {
         const flagshipDir = 'flagship';
         const binaryDir = `${flagshipDir}/${cliCommand_1.CliVersion}`;
         const internalFlagshipDir = '/home/runner/.flagship';
+        //const internalFlagshipDir = '.flagship'
         const internalConfigutations = `${internalFlagshipDir}/configurations`;
         var cliResponse = [];
         if (!fs.existsSync(internalFlagshipDir)) {
@@ -40003,27 +40005,21 @@ async function run() {
         }
         fs.chmodSync(`${internalConfigutations}`, '777');
         if (!fs.existsSync(binaryDir)) {
+            console.log('download');
             await (0, cliDownloader_1.CliDownloader)(binaryDir);
         }
         const cli = new cliCommand_1.Cli();
-        /*     if (core.getInput('create-configuration')) {
-          const commandResponse = await cli.Resource(
-            core.getInput('resource'),
-            core.getInput('method'),
-            core.getInput('flags')
-          )
-          core.setOutput('COMMAND_RESPONSE', commandResponse)
-        } */
         const commandRequests = buildInputs();
         const cliRequests = buildCommands(commandRequests);
         cliRequests.map(async (r) => {
             const resp = await cli.Resource(r.resource, r.method, r.flags);
+            console.log(resp);
             cliResponse.push(resp);
         });
         core.setOutput('COMMAND_RESPONSE', cliResponse);
     }
     catch (err) {
-        //console.log('error')
+        console.log(err);
     }
 }
 exports.run = run;

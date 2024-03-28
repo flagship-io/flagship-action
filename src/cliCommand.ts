@@ -63,9 +63,10 @@ export class Cli {
         method === 'list'
           ? `${cliBin} ${resource} ${method} ${args}`
           : `${cliBin} ${resource} ${method} ${args} --output-format json`
+      console.log(command)
       const output = await this.exec(command, {})
       if (output.stderr) {
-        return ''
+        return `error occured with command ${command}`
       }
       return JSON.stringify(output.stdout)
     } catch (err: any) {
