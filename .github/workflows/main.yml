@@ -40,9 +40,6 @@ jobs:
       - name: List Flagship
         run: ls flagship
 
-      - name: List Flagship internal
-        run: ls .flagship
-
       - name: Run flagship version
         run: flagship/1.0/flagship version
 
