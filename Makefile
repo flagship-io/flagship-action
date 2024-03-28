@@ -7,4 +7,4 @@ push:
 	git push
 
 act:
-	sudo act
+	sudo act --container-architecture linux/amd64

@@ -14,18 +14,18 @@ jobs:
         uses: ./ # Uses an action in the root directory
         id: config
         with:
-          create-configuration: '-n,config-name,-i,ciAction,-s,csAction,-a,aAction,-e,eAction'
-
-      - name: Configuration
-        uses: ./ # Uses an action in the root directory
-        id: config1
-        with:
           create-configuration: |
             name: configuration-name
-            client_id: ci
-            client_secret: cs
-            account_id: ai
-            account_environment_id: aei
+            client-id: ${{secrets.CLIENT_ID}}
+            client-secret: ${{secrets.CLIENT_SECRET}}
+            account-id: ${{secrets.ACCOUNT_ID}}
+            account-environment_id: ${{secrets.ACCOUNT_ENV_ID}}
+
+          use-configuration: |
+            name: configuration-name
+
+          list-flag: |
+            output-format: json
 
       - name: Get previous configuration step response
         continue-on-error: true
