@@ -41,7 +41,7 @@ jobs:
         run: ls flagship
 
       - name: Run flagship version
-        run: flagship/1.0/flagship version
+        run: flagship/1.0.2/flagship version
 
       - name: mkdir
         run: mkdir /home/runner/.flagship
