@@ -10,7 +10,9 @@ import {
   CREATE_CONFIGURATION,
   DELETE_CONFIGURATION,
   EDIT_CONFIGURATION,
+  GET_FLAG,
   LIST_FLAG,
+  LOAD_RESOURCE,
   USE_CONFIGURATION
 } from './const'
 /**
@@ -19,6 +21,7 @@ import {
  */
 
 type CliRequest = {
+  commandId: string
   method: string
   resource: string
   flags: string
@@ -58,11 +61,27 @@ const buildInputs = () => {
     }
   }
 
+  const getFlag = core.getMultilineInput(GET_FLAG)
+  if (core.getInput(GET_FLAG)) {
+    commandRequests = {
+      ...commandRequests,
+      [GET_FLAG]: getFlag
+    }
+  }
+
   const listFlag = core.getMultilineInput(LIST_FLAG)
   if (core.getInput(LIST_FLAG)) {
     commandRequests = {
       ...commandRequests,
       [LIST_FLAG]: listFlag
+    }
+  }
+
+  const loadResource = core.getMultilineInput(LOAD_RESOURCE)
+  if (core.getInput(LOAD_RESOURCE)) {
+    commandRequests = {
+      ...commandRequests,
+      [LOAD_RESOURCE]: loadResource
     }
   }
 
@@ -75,8 +94,13 @@ const buildCommands = (
   var cliRequests: CliRequest[] = []
   for (const [key, value] of Object.entries(commandRequests)) {
     var args: string = ''
+    var commandId: string = ''
     value?.map((f: string) => {
       var f_ = f.replaceAll(' ', '').split(':')
+      if (f_[0] == 'commandId') {
+        commandId = f_[1]
+        return
+      }
       args =
         f_.length > 1
           ? args.concat(`--${f_[0]}=${f_[1]} `)
@@ -85,6 +109,7 @@ const buildCommands = (
 
     const splitted = key.split('-')
     cliRequests.push({
+      commandId,
       method: splitted[0],
       resource: splitted[1],
       flags: args
@@ -101,9 +126,9 @@ export async function run(): Promise<void> {
     //const internalFlagshipDir = '.flagship'
 
     const internalConfigutations = `${internalFlagshipDir}/configurations`
-    var cliResponse: string[] = []
+    var cliResponse = {}
 
-    if (!fs.existsSync(internalFlagshipDir)) {
+    /*     if (!fs.existsSync(internalFlagshipDir)) {
       fs.mkdirSync(internalFlagshipDir)
     }
 
@@ -113,10 +138,9 @@ export async function run(): Promise<void> {
       fs.mkdirSync(internalConfigutations)
     }
 
-    fs.chmodSync(`${internalConfigutations}`, '777')
+    fs.chmodSync(`${internalConfigutations}`, '777') */
 
     if (!fs.existsSync(binaryDir)) {
-      console.log('download')
       await CliDownloader(binaryDir)
     }
 
@@ -125,12 +149,15 @@ export async function run(): Promise<void> {
     const commandRequests = buildInputs()
     const cliRequests = buildCommands(commandRequests)
 
-    cliRequests.map(async r => {
-      const resp = await cli.Resource(r.resource, r.method, r.flags)
-      console.log(resp)
-      cliResponse.push(resp)
-    })
-    core.setOutput('COMMAND_RESPONSE', cliResponse)
+    for (const r of cliRequests) {
+      const result = await cli.Resource(r.resource, r.method, r.flags)
+      cliResponse = {
+        ...cliResponse,
+        [r.commandId]: result
+      }
+    }
+
+    core.setOutput('commandsResult', cliResponse)
   } catch (err) {
     console.log(err)
   }

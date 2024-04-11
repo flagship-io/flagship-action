@@ -15,9 +15,17 @@ inputs:
   list-flag:
     description: 'list flag'
     required: false
+
+  get-flag:
+    description: 'get flag'
+    required: false
+  
+  load-resource:
+    description: 'load resource from resource loader'
+    required: false
 # Define your outputs here.
 outputs:
-  COMMAND_RESPONSE:
+  commandsResult:
     description: 'result of the cli'
 
 runs:

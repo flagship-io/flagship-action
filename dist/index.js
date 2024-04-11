@@ -39720,12 +39720,11 @@ class Cli {
             const command = method === 'list'
                 ? `${cliBin} ${resource} ${method} ${args}`
                 : `${cliBin} ${resource} ${method} ${args} --output-format json`;
-            console.log(command);
             const output = await this.exec(command, {});
             if (output.stderr) {
                 return `error occured with command ${command}`;
             }
-            return JSON.stringify(output.stdout);
+            return output.stdout;
         }
         catch (err) {
             return err.toString();
@@ -39842,12 +39841,14 @@ exports.CliDownloader = CliDownloader;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.LIST_FLAG = exports.USE_CONFIGURATION = exports.DELETE_CONFIGURATION = exports.EDIT_CONFIGURATION = exports.CREATE_CONFIGURATION = void 0;
+exports.LOAD_RESOURCE = exports.GET_FLAG = exports.LIST_FLAG = exports.USE_CONFIGURATION = exports.DELETE_CONFIGURATION = exports.EDIT_CONFIGURATION = exports.CREATE_CONFIGURATION = void 0;
 exports.CREATE_CONFIGURATION = 'create-configuration';
 exports.EDIT_CONFIGURATION = 'edit-configuration';
 exports.DELETE_CONFIGURATION = 'delete-configuration';
 exports.USE_CONFIGURATION = 'use-configuration';
 exports.LIST_FLAG = 'list-flag';
+exports.GET_FLAG = 'get-flag';
+exports.LOAD_RESOURCE = 'load-resource';
 
 
 /***/ }),
@@ -39959,11 +39960,25 @@ const buildInputs = () => {
             [const_1.USE_CONFIGURATION]: useConfiguration
         };
     }
+    const getFlag = core.getMultilineInput(const_1.GET_FLAG);
+    if (core.getInput(const_1.GET_FLAG)) {
+        commandRequests = {
+            ...commandRequests,
+            [const_1.GET_FLAG]: getFlag
+        };
+    }
     const listFlag = core.getMultilineInput(const_1.LIST_FLAG);
     if (core.getInput(const_1.LIST_FLAG)) {
         commandRequests = {
             ...commandRequests,
             [const_1.LIST_FLAG]: listFlag
+        };
+    }
+    const loadResource = core.getMultilineInput(const_1.LOAD_RESOURCE);
+    if (core.getInput(const_1.LOAD_RESOURCE)) {
+        commandRequests = {
+            ...commandRequests,
+            [const_1.LOAD_RESOURCE]: loadResource
         };
     }
     return commandRequests;
@@ -39972,8 +39987,13 @@ const buildCommands = (commandRequests) => {
     var cliRequests = [];
     for (const [key, value] of Object.entries(commandRequests)) {
         var args = '';
+        var commandId = '';
         value?.map((f) => {
             var f_ = f.replaceAll(' ', '').split(':');
+            if (f_[0] == 'commandId') {
+                commandId = f_[1];
+                return;
+            }
             args =
                 f_.length > 1
                     ? args.concat(`--${f_[0]}=${f_[1]} `)
@@ -39981,6 +40001,7 @@ const buildCommands = (commandRequests) => {
         });
         const splitted = key.split('-');
         cliRequests.push({
+            commandId,
             method: splitted[0],
             resource: splitted[1],
             flags: args
@@ -39995,28 +40016,32 @@ async function run() {
         const internalFlagshipDir = '/home/runner/.flagship';
         //const internalFlagshipDir = '.flagship'
         const internalConfigutations = `${internalFlagshipDir}/configurations`;
-        var cliResponse = [];
-        if (!fs.existsSync(internalFlagshipDir)) {
-            fs.mkdirSync(internalFlagshipDir);
+        var cliResponse = {};
+        /*     if (!fs.existsSync(internalFlagshipDir)) {
+          fs.mkdirSync(internalFlagshipDir)
         }
-        fs.chmodSync(`${internalFlagshipDir}`, '777');
+    
+        fs.chmodSync(`${internalFlagshipDir}`, '777')
+    
         if (!fs.existsSync(internalConfigutations)) {
-            fs.mkdirSync(internalConfigutations);
+          fs.mkdirSync(internalConfigutations)
         }
-        fs.chmodSync(`${internalConfigutations}`, '777');
+    
+        fs.chmodSync(`${internalConfigutations}`, '777') */
         if (!fs.existsSync(binaryDir)) {
-            console.log('download');
             await (0, cliDownloader_1.CliDownloader)(binaryDir);
         }
         const cli = new cliCommand_1.Cli();
         const commandRequests = buildInputs();
         const cliRequests = buildCommands(commandRequests);
-        cliRequests.map(async (r) => {
-            const resp = await cli.Resource(r.resource, r.method, r.flags);
-            console.log(resp);
-            cliResponse.push(resp);
-        });
-        core.setOutput('COMMAND_RESPONSE', cliResponse);
+        for (const r of cliRequests) {
+            const result = await cli.Resource(r.resource, r.method, r.flags);
+            cliResponse = {
+                ...cliResponse,
+                [r.commandId]: result
+            };
+        }
+        core.setOutput('commandsResult', cliResponse);
     }
     catch (err) {
         console.log(err);
